@@ -1,0 +1,113 @@
+{% extends "base0.html" %} {% block title %}校园新鲜事{% endblock %} {% block head %} {{ super() }}
+<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> {% endblock %}{% block body_attribs %} class="sidebar-mini fixed"{% endblock body_attribs %} {% block body -%} {% block navbar %}
+<div class="wrapper">
+    <header class="main-header hidden-print"><a class="logo" href="{{ url_for('main.index')}}" style="font-size: 15px;">校园新鲜事</a>
+        <nav class="navbar navbar-static-top">
+            <a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
+            <div class="navbar-custom-menu">
+                <ul class="top-nav">
+                    <!--Notification Menu-->
+                    {% if current_user.is_authenticated %}
+                    <li class="dropdown notification-menu"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o fa-lg"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="not-head">您有四条新消息.</li>
+                            <li><a class="media" href="javascript:;"><span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                  <div class="media-body"><span class="block">Lisa 给你发了消息</span><span class="text-muted block">2分钟前</span></div></a></li>
+                            <li class="not-footer"><a href="#">查看所有消息.</a></li>
+                        </ul>
+                    </li>
+                    <!-- User Menu-->
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+                        <ul class="dropdown-menu settings-menu">
+                            <li><a href="/user/{{current_user.username}}"><i class="fa fa-user fa-lg"></i> 个人信息</a></li>
+                            <li><a href="/auth/change-password"><i class="fa fa-user fa-lg"></i> 修改密码</a></li>
+                            <li><a href="/auth/change-email"><i class="fa fa-user fa-lg"></i> 修改邮箱</a></li>
+                            <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out fa-lg"></i> 登出</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <p class="bs-component">&nbsp;
+                        <a class="btn btn-primary" href="/auth/login" style="margin-top: 8px;">登录</a>&nbsp;
+                        <a class="btn btn-primary" href="/auth/register" style="margin-top: 8px;">注册</a></p>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Side-Nav-->
+    <aside class="main-sidebar hidden-print">
+        <section class="sidebar">
+            <!-- Sidebar User-->
+            {% if current_user.is_authenticated %}
+            <div class="user-panel">
+                <div class="pull-left image"><img class="img-circle" src="{{ url_for('static', filename='header.jpg') }}" alt="User Image"></div>
+                <div class="pull-left info">
+                    <p>{{current_user.username}}</p>
+                </div>
+            </div>
+            {% else %} {% endif %}
+            <!-- Sidebar Menu-->
+            <ul class="sidebar-menu">
+                <li class="active"><a href="{{ url_for('main.index')}}"><i class="fa fa-dashboard"></i><span>首页</span></a></li>
+                <li class="treeview"><a href="#"><i class="fa fa-laptop"></i><span>新鲜事</span><i class="fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('main.add_news')}}"><i class="fa fa-circle-o"></i> 发布新鲜事</a></li>
+                        <li><a href="{{ url_for('main.browse_news')}}"><i class="fa fa-circle-o"></i> 查看新鲜事</a></li>
+                    </ul>
+                </li>
+                <li class="treeview"><a href="#"><i class="fa fa-edit"></i><span>校园推送</span><i class="fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('main.add_ads')}}"><i class="fa fa-circle-o"></i> 新推送</a></li>
+                        <li><a href="{{ url_for('main.browse_ads')}}"><i class="fa fa-circle-o"></i> 所有推送</a></li>
+                    </ul>
+                </li>
+                <li class="treeview"><a href="#"><i class="fa fa-th-list"></i><span>我的</span><i class="fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('main.browse_userlogs')}}"><i class="fa fa-circle-o"></i> 浏览记录</a></li>
+                        <li><a href="{{ url_for('auth.eol')}}"><i class="fa fa-circle-o"></i> 网络教学平台</a></li>
+                        <li><a href="{{ url_for('auth.jwgl')}}"><i class="fa fa-circle-o"></i> 教务管理系统</a></li>
+                    </ul>
+                </li>              
+                <li class="treeview"><a href="#"><i class="fa fa-file-text"></i><span>其他</span><i class="fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('main.refence_algo')}}"><i class="fa fa-circle-o"></i> 推送算法设置</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    {% endblock %} {% block content %}
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bs-component">
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-dismissible alert-danger" style="margin-top: 5px;marker-start: 15px;marker-end: 15px;">
+                        <button class="close" type="button" data-dismiss="alert">×</button>
+                        <h4><strong>提示：</strong></h4>
+                        <p>{{ message }}</p>
+                    </div>  
+                </div>
+            </div>
+             {% endfor %} {% block page_content %}{% endblock %} {% block share_content %} {% endblock %}
+ 
+            <div class="row">
+                <div class="col-lg-12 text-center container">
+                    <p style="color:green;">&copy;&nbsp;2018 - powered by Python 计科技1502 第九组</p>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+</div>
+<script src="../static/js/jquery-2.1.4.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/plugins/pace.min.js"></script>
+<script src="../static/js/main.js"></script>
+{% block script %}
+
+
+{% endblock %} {% endblock %}{% endblock %}

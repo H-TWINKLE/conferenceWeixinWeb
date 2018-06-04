@@ -1,0 +1,65 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>jQuery活动内容上下滚动切换代码</title>
+
+<link href="css/ad.css" rel="stylesheet" />
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+
+</head>
+<body>
+
+<div class="activityBox" style="margin:30px auto">
+	<div class="title">
+		<h2>活动进行中..</h2>
+		<span class="ac_List"><a href="http://www.17sucai.com/">全部</a><span class="pageState"><span>1</span>/5</span></span>
+		<span class="prev"></span>
+		<span class="next"></span>
+	</div>
+	<div class="content">
+		<span class="leftZone"></span>
+		<div class="contentInner">
+			<div class="tempWrap">
+				<ul>
+					<li>
+						<a href="http://www.17sucai.com/" target="_blank"><img src="images/1.jpg"></a>
+						<p class="mt5"><a href="http://www.17sucai.com/">盘点男色赢积分</a></p>
+						<p>截止日期：12月10日<span>246人关注</span></p>
+					</li>
+					<li>
+						<a href="http://www.17sucai.com/" target="_blank"><img src="images/2.jpg"></a>
+						<p class="mt5"><a href="http://www.17sucai.com/">表白：那些没有好好说的再见</a></p>
+						<p>截止日期：12月12日<span>1001人关注</span></p>
+					</li>
+					<li>
+						<a href="http://www.17sucai.com/" target="_blank"><img src="images/3.jpg"></a>
+						<p class="mt5"><a href="http://www.17sucai.com/">10点特价围观《王的盛宴》</a></p>
+						<p>截止日期：12月04日<span>797人关注</span></p>
+					</li>
+					<li>
+						<a href="http://www.17sucai.com/" target="_blank"><img src="images/4.jpg"></a>
+						<p class="mt5"><a href="http://www.17sucai.com/">横扫沪上影院特价票</a></p>
+						<p>截止日期：12月27日<span>892人关注</span></p>
+					</li>
+					<li>
+						<a href="http://www.17sucai.com/" target="_blank"><img src="images/5.jpg"></a>
+						<p class="mt5"><a href="http://www.17sucai.com/">写影评赢原版周边《少年派》</a></p>
+						<p>截止日期：12月07日<span>1591人关注</span></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<span class="rightZone"></span>
+	</div>
+</div>
+
+<script type="text/javascript">jQuery(".activityBox").slide({ mainCell:".contentInner ul", effect:"top",delayTime:400});</script>
+
+
+</body>
+</html>

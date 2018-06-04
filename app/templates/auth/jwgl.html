@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% import "macros.html" as macros %} {% block page_content %}
+<hr> {% import "bootstrap/wtf.html" as wtf %} {%if current_user.dep %}{% else %}
+<div class="col-md-12">
+    <div class="row">{{ wtf.quick_form(form) }}
+    </div>
+</div>{%endif%} {% if js %}
+<div class="row user">
+    <div class="col-md-1">
+        <div class="card p-0">
+            <ul class="nav nav-tabs nav-stacked user-tabs">
+                <li class="active"><a href="#user-timeline" data-toggle="tab">我的信息</a></li>
+                <li><a href="#user-settings" data-toggle="tab">我的成绩</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-11">
+        <div class="tab-content">
+            <div class="tab-pane active" id="user-timeline">
+                <div class="timeline">
+                    <div class="card user-settings">
+                        <p>
+                            <font color="red" style="font-size: 15px;">学历：</font>{{js['jwglinfo']['lblCc']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">出生日期：</font>{{js['jwglinfo']['lblCsrq']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">班级：</font>{{js['jwglinfo']['lblDqszj']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">家庭所在地：</font>{{js['jwglinfo']['lblJtszd']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">考生号：</font>{{js['jwglinfo']['lblKsh']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">联系电话：</font>{{js['jwglinfo']['lblLxdh']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">民族：</font>{{js['jwglinfo']['lblMz']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">入学日期：</font>{{js['jwglinfo']['lblRxrq']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">身份证：</font>{{js['jwglinfo']['lblSfzh']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">性别：</font>{{js['jwglinfo']['lblXb']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">学院：</font>{{js['jwglinfo']['lblXy']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">学年：</font>{{js['jwglinfo']['lblXz']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">学院：</font>{{js['jwglinfo']['lblXy']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">行政班：</font>{{js['jwglinfo']['lblXzb']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">英语成绩：</font>{{js['jwglinfo']['lblYycj']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">邮政编码：</font>{{js['jwglinfo']['lblYzbm']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">专业</font>{{js['jwglinfo']['lblZymc']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">政治面貌：</font>{{js['jwglinfo']['lblZzmm']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">学号：</font>{{js['jwglinfo']['xh']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">姓名：</font>{{js['jwglinfo']['xm']}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="user-settings">
+                <div class="card user-settings">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th>课程名称</th>
+                                <th>课程性质</th>
+                                <th>课程学院</th>
+                                <th>分数</th>
+                                <th>绩点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in js['jwglscore']%}
+                            <tr>
+                                <td>{{i['kechengmingcheng']}}</td>
+                                <td>{{i['kechengxingzhi']}}</td>
+                                <td>{{i['xueyuanmingchen']}}</td>
+                                <td>{{i['chengji']}}</td>
+                                <td>{{i['jidian']}}</td>
+                            </tr>
+                           {%- endfor -%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+<div class="col-md-4">
+    <div class="container">
+        <div class="text-center">
+        </div>
+    </div>
+</div>
+<hr> {% endblock %} {% block scripts %} {{ super() }} {{ pagedown.include_pagedown() }} {% endblock %}

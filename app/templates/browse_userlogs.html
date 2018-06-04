@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% import "macros.html" as macros %} {% block title %}浏览用户日志信息{% endblock %} {% block page_content %}
+<div class="col-sm-12 col-md-12 main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>浏览用户日志信息</h4>
+            <form class="form-horizontal" role="form" method="POST" action="{{ url_for('.browse_userlogs') }}">
+                <div class="form-group">
+                    {{ macros.horizontal_field(form.search_review)}}
+                </div>
+                <div class="form-group">
+                    {{ macros.horizontal_field(form.submit)}}
+                </div>
+            </form>
+            <form class="form-horizontal" role="form" method="POST" action="{{ url_for('.browse_userlogs_del') }}">
+                <div class="form-group">
+                    <table class="table">
+                        <tr>
+                            <th>编号</th>
+                            <th>用户编号</th>
+                            <th>用户uuid</th>
+                            <th>行为操作</th>
+                            <th>用户邮件</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                        {% for userlog in userlogs %}
+                        <tr>
+                            <td>{{userlog.news_id}}</td>
+                            <td>{{userlog.user_id}}</td>
+                            <td>{{userlog.uuid}}</td>
+                            <td>{{userlog.useractions}}</td>
+                            <td>{{userlog.useremail}}</td>
+                            <td>{{userlog.timestamp.year}}-{{userlog.timestamp.month}}-{{userlog.timestamp.day}}</td>
+                            <td>
+                                <a href="{{ url_for('.del_userlogs', id=userlog.id) }}">
+                                        <span class="label label-default">删除</span>
+                                    </a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#selall2').click(function() {
+        //alert('sfsdfs');
+        $('.selall2').click();
+    });
+
+    $('#del_selected').click(function() {
+        //alert($('#sel').val()[1]);
+        if (!confirm("你确认要删除所选记录吗？"))
+            return false;
+    })
+
+});
+</script>
+<script src="../static/js/application.js"></script>
+{% endblock %}

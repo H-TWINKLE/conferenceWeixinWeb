@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}} - 登录 / 注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+</head>
+
+<body id="{{flag}}">
+    <input type="hidden" value="{% block content %}{% for message in get_flashed_messages() %}{{ message }} {% endfor %} {% endblock %}" id="flash">
+    <p class="tip">{{title}}</p>
+    <div class="cont">
+        <form method="post" action="/auth/login">
+            <div class="form sign-in" align="center">
+                <h2>欢迎回来</h2>
+                <div class="form-group">
+                    <label>
+                        <span>邮箱</span>
+                        <input type="email" id="email" name="email" />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <span>密码</span>
+                        <input type="password" id="password" name="password" />
+                    </label>
+                </div>
+                <a href="/auth/reset">
+                    <p class="forgot-pass">忘记密码</p>
+                </a>
+                <button type="submit" class="submit">登录</button>
+            </div>
+        </form>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>新用户?</h2>
+                    <p>作为学校的一份子，欢迎注册!</p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>老用户?</h2>
+                    <p>拥有账号？请登录!</p>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up" id="toregister">注册</span>
+                    <span class="m--in">登录</span>
+                </div>
+            </div>
+            <form method="post" action="/auth/register">
+                <div class="form sign-up" align="center">
+                    <h2>你好，新用户！</h2>
+                    <div class="form-group">
+                        <label>
+                            <span>姓名</span>
+                            <input type="text" id="names" name="names" />
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <span>邮箱</span>
+                            <input type="email" id="emails" name="emails" />
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <span>密码</span>
+                            <input type="password" id="passwords" name="passwords" />
+                        </label>
+                    </div>
+                    <button type="submit" class="submit">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery-2.1.4.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/plugins/bootstrap-notify.min.js')}}"></script>
+    <script src="/static/js/plugins/pace.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script type="text/javascript" src="/static/js/index.js"></script>
+    <script type="text/javascript">
+    if (document.getElementById("register") != null) {
+        document.getElementById("toregister").click(function(event) {});
+    };
+
+    var val = document.getElementById("flash").value.replace(/(^\s*)|(\s*$)/g, "");
+
+    if (val != "") {
+        $(document).ready(function() {
+            $.notify({
+                title: "提示:  ",
+                message: val,
+            }, {
+                type: "info"
+            });
+        });
+
+
+
+    }
+    </script>
+</body>
+
+</html>

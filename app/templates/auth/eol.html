@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% import "macros.html" as macros %} {% block page_content %}
+<hr> {% import "bootstrap/wtf.html" as wtf %} {%if current_user.phone %}{% else %}
+<div class="col-md-12">
+    <div class="row">{{ wtf.quick_form(form) }}
+    </div>
+</div>{%endif%} {% if js %}
+<div class="row user">
+    <div class="col-md-1">
+        <div class="card p-0">
+            <ul class="nav nav-tabs nav-stacked user-tabs">
+            	<li class="active"><a href="#user-timeline" data-toggle="tab">我的信息</a></li>
+                <li ><a href="#user-settings" data-toggle="tab" id="it">我的作业</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-11">
+        <div class="tab-content">
+        	  <div class="tab-pane active" id="user-timeline">
+                <div class="timeline">
+                    <div class="card user-settings">                   
+                            <font color="red" style="font-size: 15px;">姓名：</font>{{js['name']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">在线总时长：</font>{{js['onlinetime']}}</p>
+                        <p>
+                            <font color="red" style="font-size: 15px;">登录次数：</font>{{js['loginfre']}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="user-settings">
+                <div class="card user-settings">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th>科目</th>
+                                <th>标题</th>
+                                <th>截止日期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in js['list']%} {% for j in i%}
+                            <tr>
+                                <td>{{j['subject']}}</td>
+                                <td>{{j['title']}}</td>
+                                <td>{{j['abort']}}</td>
+                            </tr>
+                            {%- endfor -%} {%- endfor -%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+<div class="col-md-4">
+    <div class="container">
+        <div class="text-center">
+        </div>
+    </div>
+</div>
+
+<hr> {% endblock %} {% block scripts %} {{ super() }} {{ pagedown.include_pagedown() }} {% endblock %}
